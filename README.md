@@ -69,4 +69,11 @@ Opportunistic Encryption Support                                [DISABLED]
 Windows VPN Setup
 =================
 
-![Create connection image](/images/windows/create-connection.png?raw=true "Create connection image")
+![Create connection image](/images/windows/create-connection.png?raw=true)
+![PPP Settings](/images/windows/ppp-settings.png?raw=true)
+![Security Tab](/images/windows/security-tab.png?raw=true)
+![L2TP Preshared Key](/images/windows/l2tp-preshared-key.png?raw=true)
+![Networking Tab](/images/windows/networking-tab.png?raw=true)
+![WINS Settings](/images/windows/wins-tab.png?raw=true)
+![Connecting...](/images/windows/connecting-sidebar.png?raw=true)
+
