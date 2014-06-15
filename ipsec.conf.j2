@@ -33,9 +33,36 @@ conn L2TP-PSK-noNAT
     ikelifetime=8h
     keylife=1h
 
-    ike=aes256-sha1;modp1024!
-    phase2alg=aes256-sha1;modp1024
+    # This does not work, the Windows 8.1 L2TP VPN client breaks.
+    # 
+    # Following errors show up in /var/log/auth.log:
+    #   
+    # Jun 15 11:18:19 vpn pluto[10302]: "L2TP-PSK-noNAT"[16] 91.65.92.33 #16: responding to Main Mode from unknown peer 91.65.92.33
+    # Jun 15 11:18:19 vpn pluto[10302]: "L2TP-PSK-noNAT"[16] 91.65.92.33 #16: OAKLEY_GROUP 20 not supported.  Attribute OAKLEY_GROUP_DESCRIPTION
+    # Jun 15 11:18:19 vpn pluto[10302]: "L2TP-PSK-noNAT"[16] 91.65.92.33 #16: OAKLEY_GROUP 19 not supported.  Attribute OAKLEY_GROUP_DESCRIPTION
+    # Jun 15 11:18:19 vpn pluto[10302]: "L2TP-PSK-noNAT"[16] 91.65.92.33 #16: Oakley Transform [OAKLEY_AES_CBC (256), OAKLEY_SHA1, OAKLEY_GROUP_MODP2048] refused due to strict flag
+    # Jun 15 11:18:19 vpn pluto[10302]: "L2TP-PSK-noNAT"[16] 91.65.92.33 #16: Oakley Transform [OAKLEY_3DES_CBC (192), OAKLEY_SHA1, OAKLEY_GROUP_MODP2048] refused due to strict flag
+    # Jun 15 11:18:19 vpn pluto[10302]: "L2TP-PSK-noNAT"[16] 91.65.92.33 #16: Oakley Transform [OAKLEY_3DES_CBC (192), OAKLEY_SHA1, OAKLEY_GROUP_MODP1024] refused due to strict flag
+    # Jun 15 11:18:19 vpn pluto[10302]: "L2TP-PSK-noNAT"[16] 91.65.92.33 #16: no acceptable Oakley Transform
+    # Jun 15 11:18:19 vpn pluto[10302]: "L2TP-PSK-noNAT"[16] 91.65.92.33 #16: sending notification NO_PROPOSAL_CHOSEN to 91.65.92.33:500
+    # Jun 15 11:18:19 vpn pluto[10302]: "L2TP-PSK-noNAT"[16] 91.65.92.33: deleting connection "L2TP-PSK-noNAT" instance with peer 91.65.92.33 {isakmp=#0/ipsec=#0}
+
+    #ike=aes256-sha1;modp1024!
+    #phase2alg=aes256-sha1;modp1024    
     # specifies the phase 1 encryption scheme, the hashing algorithm, and the diffie-hellman group. The modp1024 is for Diffie-Hellman 2. Why 'modp' instead of dh? DH2 is a 1028 bit encryption algorithm that modulo's a prime number, e.g. modp1028. See RFC 5114 for details or the wiki page on diffie hellmann, if interested.
+
+    # Fix is mentioned:
+    #
+    # "[Openswan Users] Unable to connect using Windows 7"
+    # https://lists.openswan.org/pipermail/users/2014-April/022947.html
+    #
+    # Connection succeeds:
+    # Jun 15 11:22:47 vpn pluto[12556]: "L2TP-PSK-noNAT"[2] 91.65.92.33 #2: STATE_QUICK_R2: IPsec SA established transport mode {ESP=>0xe6a33730 <0x5258a0de xfrm=AES_128-HMAC_SHA1 NATOA=192.168.0.190 NATD=91.65.92.33:4500 DPD=none}
+
+    ike=aes256-sha1,aes128-sha1,3des-sha1
+    phase2alg=aes256-sha1,aes128-sha1,3des-sha1
+
+
 
     type=transport
     #because we use l2tp as tunnel protocol

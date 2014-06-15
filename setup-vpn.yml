@@ -43,3 +43,8 @@
     template: src=options.xl2tpd.j2 dest=/etc/ppp/options.xl2tpd backup=yes owner=root group=root mode=0644
   - name: Copy over chap-secrets file.
     template: src=chap-secrets.j2   dest=/etc/ppp/chap-secrets   backup=yes owner=root group=root mode=0600
+  - name: Restart services.
+    service: name={{ item }} state=restarted
+    with_items:
+      - ipsec
+      - xl2tpd
