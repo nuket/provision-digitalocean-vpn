@@ -1,0 +1,39 @@
+---
+- hosts: 127.0.0.1
+  vars:
+    ipsec_psk: "{{ lookup('file', 'ipsec.psk') }}"
+  tasks:
+  - name: Install OpenSWAN.
+    apt: name=openswan state=latest
+  - name: Install xl2tpd.
+    apt: name=xl2tpd state=latest
+  - name: Install pppd.
+    apt: name=ppp state=latest
+  - name: Install lsof.
+    apt: name=lsof state=latest
+  - name: Set up iptables routing.
+    command: /sbin/iptables -t nat -A POSTROUTING -j SNAT --to-source {{ ansible_default_ipv4["address"] }} -o {{ ansible_default_ipv4["interface"] }}
+  - name: Set sysctl.conf (ip_forward, accept_directs, send_redirects, rp_filter, accept_source_route, ignore_bogus) values.
+    lineinfile: dest=/etc/sysctl.conf line="{{ item }}" backup=yes
+    with_items:
+      - "net.ipv4.ip_forward = 1"
+      - "net.ipv4.conf.all.accept_redirects = 0"
+      - "net.ipv4.conf.all.send_redirects = 0"
+      - "net.ipv4.conf.default.rp_filter = 0"
+      - "net.ipv4.conf.default.accept_source_route = 0"
+      - "net.ipv4.conf.default.send_redirects = 0"
+      - "net.ipv4.icmp_ignore_bogus_error_responses = 1"
+  - name: Set accept_redirects to 0 on all network interfaces.
+    shell: /bin/echo 0 > {{ item }}
+    with_fileglob:
+      - /proc/sys/net/ipv4/conf/*/accept_redirects
+  - name: Set send_redirects to 0 on all network interfaces.
+    shell: /bin/echo 0 > {{ item }}
+    with_fileglob:
+      - /proc/sys/net/ipv4/conf/*/send_redirects
+  - name: Apply sysctl changes.
+    command: /sbin/sysctl -p
+  - name: Setup IPsec config file.
+    template: src=ipsec.conf.j2 dest=/etc/ipsec.conf backup=yes owner=root group=root mode=0644
+  - name: Setup IPsec shared secret.
+    template: src=ipsec.secrets.j2 dest=/etc/ipsec.secrets backup=yes owner=root group=root mode=0600
