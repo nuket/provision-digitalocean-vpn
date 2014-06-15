@@ -34,6 +34,12 @@
   - name: Apply sysctl changes.
     command: /sbin/sysctl -p
   - name: Setup IPsec config file.
-    template: src=ipsec.conf.j2 dest=/etc/ipsec.conf backup=yes owner=root group=root mode=0644
+    template: src=ipsec.conf.j2     dest=/etc/ipsec.conf         backup=yes owner=root group=root mode=0644
   - name: Setup IPsec shared secret.
-    template: src=ipsec.secrets.j2 dest=/etc/ipsec.secrets backup=yes owner=root group=root mode=0600
+    template: src=ipsec.secrets.j2  dest=/etc/ipsec.secrets      backup=yes owner=root group=root mode=0600
+  - name: Setup xl2ptd
+    template: src=xl2tpd.conf.j2    dest=/etc/xl2tpd/xl2tpd.conf backup=yes owner=root group=root mode=0644
+  - name: Setup xl2tpd options.
+    template: src=options.xl2tpd.j2 dest=/etc/ppp/options.xl2tpd backup=yes owner=root group=root mode=0644
+  - name: Copy over chap-secrets file.
+    template: src=chap-secrets.j2   dest=/etc/ppp/chap-secrets   backup=yes owner=root group=root mode=0600
