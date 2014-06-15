@@ -27,3 +27,7 @@ tramp
 
 # AUCTeX auto folder
 /auto/
+
+
+# Do not check in Preshared Key.
+ipsec.psk
