@@ -65,3 +65,8 @@ Checking /bin/sh is not /bin/dash                               [WARNING]
 Checking for 'iptables' command                                 [OK]
 Opportunistic Encryption Support                                [DISABLED]
 ```
+
+Windows VPN Setup
+=================
+
+![Create connection image](/images/windows/create-connection.png?raw=true "Create connection image")
