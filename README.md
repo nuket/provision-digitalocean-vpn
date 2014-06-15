@@ -17,12 +17,26 @@ Prerequisites on a clean Ubuntu 14.04 Image
 
 Check out this repository:
 
+```
+# git clone https://github.com/nuket/provision-digitalocean-vpn.git
+# cd provision-digitalocean-vpn
+```
 
-
-Customize ipsec.secrets with a new secret key.
+Customize `ipsec.secrets` with a new secret key.
 
 ```
 # openssl rand -hex 32 > ipsec.psk
+```
+
+Customize `chap-secrets.j2` with VPN client name, server, password, and authorized addresses. You can generate a random password using `openssl rand -hex 8`. 
+
+The `chap-secrets.j2` entries will look something like:
+
+```
+# Secrets for authentication using CHAP
+# client       server  secret                  IP addresses
+alice          l2tpd   0F92E5FC2414101EA       *
+bob            l2tpd   DF98F09F74C06A2F        *
 ```
 
 Run the Ansible playbook.
