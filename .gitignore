@@ -29,5 +29,6 @@ tramp
 /auto/
 
 
-# Do not check in Preshared Key.
+# Do not check in Preshared Keys.
 ipsec.psk
+chap-secrets.j2
