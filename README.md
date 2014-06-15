@@ -12,8 +12,12 @@ Prerequisites on a clean Ubuntu 14.04 Image
 ```
 # apt-get update
 # apt-get upgrade
-# apt-get install ansible
+# apt-get install ansible git
 ```
+
+Check out this repository:
+
+
 
 Customize ipsec.secrets with a new secret key.
 
