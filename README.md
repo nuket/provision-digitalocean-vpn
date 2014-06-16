@@ -70,10 +70,27 @@ Windows VPN Setup
 =================
 
 ![Create connection image](/images/windows/create-connection.png?raw=true)
-![PPP Settings](/images/windows/ppp-settings.png?raw=true)
-![Security Tab](/images/windows/security-tab.png?raw=true)
-![L2TP Preshared Key](/images/windows/l2tp-preshared-key.png?raw=true)
-![Networking Tab](/images/windows/networking-tab.png?raw=true)
-![WINS Settings](/images/windows/wins-tab.png?raw=true)
-![Connecting...](/images/windows/connecting-sidebar.png?raw=true)
 
+The default PPP Settings can be kept:
+
+![PPP Settings](/images/windows/ppp-settings.png?raw=true)
+
+The Security settings should be upgraded to "Require encryption", and allow MS-CHAP v2:
+
+![Security Tab](/images/windows/security-tab.png?raw=true)
+
+The L2TP Preshared Key is the value that was generated and stored in `ipsec.psk`, so copy that into this field:
+
+![L2TP Preshared Key](/images/windows/l2tp-preshared-key.png?raw=true)
+
+Disable `File and Printer Sharing for Microsoft Networks` and `Client for Microsoft Networks`, as they're chatty and probably nothing you need in this VPN.
+
+![Networking Tab](/images/windows/networking-tab.png?raw=true)
+
+`Disable NetBIOS over TCP/IP` in the Internet Protocol v4 settings:
+
+![WINS Settings](/images/windows/wins-tab.png?raw=true)
+
+To actually connect, you need to use the username and password you placed in the `chap-secrets.j2` file here:
+
+![Connecting...](/images/windows/connecting-sidebar.png?raw=true)
