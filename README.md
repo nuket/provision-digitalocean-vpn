@@ -3,8 +3,7 @@ Introduction
 
 Here's an Ansible playbook to provision a private VPN server on a DigitalOcean VPS.
 
-Based on the work done here: 
-https://raymii.org/s/tutorials/IPSEC_L2TP_vpn_with_Ubuntu_14.04.html
+Based on the work done here: https://raymii.org/s/tutorials/IPSEC_L2TP_vpn_with_Ubuntu_14.04.html with one major fix to support Windows 7, 8, and 8.1 VPN client connections.
 
 Prerequisites on a clean Ubuntu 14.04 Image
 -------------------------------------------
