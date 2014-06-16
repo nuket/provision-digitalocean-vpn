@@ -22,11 +22,15 @@ Check out this repository:
 # cd provision-digitalocean-vpn
 ```
 
+### L2TP Preshared Key
+
 Customize `ipsec.secrets` with a new secret key.
 
 ```
 # openssl rand -hex 32 > ipsec.psk
 ```
+
+### Username and Password
 
 Customize `chap-secrets.j2` with VPN client name, server, password, and authorized addresses. You can generate a random password using `openssl rand -hex 8`. 
 
