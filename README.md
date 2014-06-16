@@ -23,7 +23,7 @@ Check out this repository:
 
 ### L2TP Preshared Key
 
-Customize `ipsec.secrets` with a new secret key.
+Create one of the secret values used to connect to the VPN server:
 
 ```
 # openssl rand -hex 32 > ipsec.psk
@@ -31,9 +31,11 @@ Customize `ipsec.secrets` with a new secret key.
 
 ### Username and Password
 
-Customize `chap-secrets.j2` with VPN client name, server, password, and authorized addresses. You can generate a random password using `openssl rand -hex 8`. 
+Customize `chap-secrets.j2` with VPN username and password information.
 
-The `chap-secrets.j2` entries will look something like:
+You can generate a random password using `openssl rand -hex 8`. 
+
+The `chap-secrets.j2` entries will look something like (server is always `l2tpd`, IP addresses would probably always be `*`, unless you know what you're doing:
 
 ```
 # Secrets for authentication using CHAP
