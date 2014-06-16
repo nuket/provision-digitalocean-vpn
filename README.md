@@ -43,6 +43,8 @@ alice          l2tpd   0F92E5FC2414101EA       *
 bob            l2tpd   DF98F09F74C06A2F        *
 ```
 
+### Go!
+
 Run the Ansible playbook.
 
 ```
