@@ -86,7 +86,7 @@ The Security settings should be upgraded to "Require encryption", and allow MS-C
 
 ![Security Tab](/images/windows/security-tab.png?raw=true)
 
-The L2TP Preshared Key is the value that was generated and stored in `ipsec.psk`, so copy that into this field:
+Copy the L2TP Preshared Key, that was generated above, into this field:
 
 ![L2TP Preshared Key](/images/windows/l2tp-preshared-key.png?raw=true)
 
@@ -98,6 +98,8 @@ Disable `File and Printer Sharing for Microsoft Networks` and `Client for Micros
 
 ![WINS Settings](/images/windows/wins-tab.png?raw=true)
 
-To actually connect, you need to use the username and password you placed in the `chap-secrets.j2` file here:
+Use the username and password you placed in the `chap-secrets.j2` file to connect to the VPN server:
 
 ![Connecting...](/images/windows/connecting-sidebar.png?raw=true)
+
+All done!
